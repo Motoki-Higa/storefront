@@ -14,5 +14,5 @@ class TaggedItem(models.Model):
     # To define a Generic Relationship, there are three fields you need to define
     # content type, object id and content object 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField
+    object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey()
