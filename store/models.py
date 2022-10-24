@@ -9,6 +9,9 @@ class Promotion(models.Model):
 
 class Collection(models.Model):
     title = models.CharField(max_length=255)
+    # related_name='+' to solve the name clash
+    # https://codewithmosh.com/courses/1422300/lectures/33213978
+    featured_product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True, related_name='+')
 
 
 class Product(models.Model):
