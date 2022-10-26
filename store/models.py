@@ -11,7 +11,16 @@ class Collection(models.Model):
     title = models.CharField(max_length=255)
     # related_name='+' to solve the name clash
     # https://codewithmosh.com/courses/1422300/lectures/33213978
-    featured_product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True, related_name='+')
+    featured_product = models.ForeignKey(
+        'Product', on_delete=models.SET_NULL, null=True, related_name='+')
+
+    # display Collections title instead of 'collection' in Django admin site
+    def __str__(self) -> str:
+        return self.title
+
+    # change the sorting by title in Django admin site
+    class Meta:
+        ordering = ['title']
 
 
 class Product(models.Model):
@@ -26,6 +35,15 @@ class Product(models.Model):
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
     # many to many relationship
     promotions = models.ManyToManyField(Promotion)
+
+
+    # display Collections title instead of 'collection' in Django admin site
+    def __str__(self) -> str:
+        return self.title
+
+    # change the sorting by title in Django admin site
+    class Meta:
+        ordering = ['title']
 
 
 class Customer(models.Model):
